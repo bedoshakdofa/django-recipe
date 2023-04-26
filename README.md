@@ -1,2 +1,1 @@
 "# django-recipe" 
-"# django-recipe" 
