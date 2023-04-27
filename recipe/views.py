@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from .models import recipe
-from .forms import registertion
+from .forms import registertion,recipeForm
+from django.contrib.auth.decorators import login_required
 
 def login_view(request):
     if request.method=="POST":
@@ -45,3 +46,17 @@ def search_view(request):
 def recipe_detial(request,id=None):
     object=recipe.objects.get(id=id)
     return render (request,'recipe/detial_view.html',{"object":object})
+
+@login_required(login_url='login')
+def recipe_record(request):
+    if request.method=="POST":
+        form=recipeForm(request.POST)
+        if form.is_valid():
+            form.save
+    else:
+        form=recipeForm()
+
+    context={"form":form}
+
+    return render(request,'recipe/recipe_record.html',context=context)
+

@@ -8,7 +8,7 @@ class registertion(UserCreationForm):
         model=User
         fields=['username','email','password1','password2']
 
-class recipeForm(forms.Form):
+class recipeForm(forms.ModelForm):
     class Meta:
         model=recipe
-        fields=['__all__']
+        fields=['recipe_name','recipe_ingred','img','recipe_step','cate']

@@ -1,0 +1,12 @@
+{% extends 'recipe/nav.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {%bootstrap_form form%}
+        <button type='submit'>save</button>
+    </form>
+{% endblock content %}
+
+
