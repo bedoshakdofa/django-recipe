@@ -50,13 +50,17 @@ def recipe_detial(request,id=None):
 @login_required(login_url='login')
 def recipe_record(request):
     if request.method=="POST":
+        print("here1")
         form=recipeForm(request.POST)
         if form.is_valid():
+            print('here2')
             form.save
     else:
         form=recipeForm()
+        print('here3')
 
-    context={"form":form}
+    obj=recipe()
+    context={"form":form,"obj":obj}
 
     return render(request,'recipe/recipe_record.html',context=context)
 

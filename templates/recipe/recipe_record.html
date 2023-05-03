@@ -4,8 +4,13 @@
 {% block content %}
     <form method="POST">
         {% csrf_token %}
-        {%bootstrap_form form%}
-        <button type='submit'>save</button>
+        {% if not obj %}
+            <p>thank you for save your recipe your  recipe id {{obj.id}}</p>
+            <p>click<a href="{% url 'home' %}">here</a>to return home</p>
+        {% else %}
+            {%bootstrap_form form%}
+            <button type='submit'>save</button>
+        {% endif %}
     </form>
 {% endblock content %}
 

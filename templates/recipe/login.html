@@ -11,7 +11,7 @@
 
 </head>
 <body>
-  <form method="post">
+  <form method="POST">
     {% csrf_token %}
     <div class="screen-1">
       <svg class="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="300" height="300" viewbox="0 0 640 480" xml:space="preserve">
@@ -38,20 +38,24 @@
         <label for="email">Email Address</label>
         <div class="sec-2">
           <ion-icon name="mail-outline"></ion-icon>
-          <input type="text" name="email" placeholder="Username"/>
+          <input type="text" name="email"/>
         </div>
       </div>
       <div class="password">
         <label for="password">Password</label>
         <div class="sec-2">
           <ion-icon name="lock-closed-outline"></ion-icon>
-          <input class="pas" type="password" name="pass" placeholder="password"/>
+          <input class="pas" type="password" name="pass"/>
           <ion-icon class="show-hide" name="eye-outline"></ion-icon>
         </div>
       </div>
       <button class="login">Login </button>
+      {% if error %}
+      <p>{{error}}</p>
+      {% endif %}
       <div class="footer">
-        <a herf="{% url 'signup' %}">signup</a><span>Forgot Password?</span>
+        <a href="{% url 'signup' %}">signup</a>
+        <a href="">Forget your password?</a>
       </div>
     </div>  
   </form>
