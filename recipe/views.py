@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate,login,logout
 from .models import recipe
 from .forms import registertion,recipeForm
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth import get_user
 def login_view(request):
     if request.method=="POST":
         username=request.POST.get('email')
@@ -40,27 +40,25 @@ def sign_views(request):
 
 def search_view(request):
     query=request.GET.get("q")
-    obj=recipe.objects.get(id=query)
+    obj=recipe.objects.filter(recipe_name__icontains=query)
     return render(request,'recipe/search.html',{"obj":obj})
 
-def recipe_detial(request,id=None):
+def recipe_detial(request,id):
     object=recipe.objects.get(id=id)
     return render (request,'recipe/detial_view.html',{"object":object})
 
 @login_required(login_url='login')
 def recipe_record(request):
+    admin=get_user(request)
     if request.method=="POST":
-        print("here1")
-        form=recipeForm(request.POST)
+        form=recipeForm(request.POST , request.FILES)
         if form.is_valid():
-            print('here2')
-            form.save
+            myform=form.save(commit=False)
+            myform.auther=admin
+            myform.save()
+            form=recipeForm()
     else:
         form=recipeForm()
-        print('here3')
-
-    obj=recipe()
-    context={"form":form,"obj":obj}
-
+    context={"form":form,"obj":recipe}
     return render(request,'recipe/recipe_record.html',context=context)
 
